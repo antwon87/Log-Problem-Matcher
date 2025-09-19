@@ -327,10 +327,10 @@ export function activate(context: vscode.ExtensionContext) {
                      }
                   }
 
-                  let start_line: number = 0;
-                  let start_char: number = 0;
-                  let end_line: number = 0;
-                  let end_char: number = 0;
+                  let start_line: number = 1;
+                  let start_char: number = 1;
+                  let end_line: number = 1;
+                  let end_char: number = 1;
 
                   // If the pattern "kind" is "file", I'll leave the location details as 0s.
                   // I'm not sure how the task problem matchers handle this situation, since
@@ -338,7 +338,7 @@ export function activate(context: vscode.ExtensionContext) {
                   if (matcher.pattern.kind !== "file") {
                      if (matcher.pattern.location) {
                         // If a location key is specified, parse the match for location details.
-                        const location: string = (matches[matcher.pattern.location] === undefined) ? '0,0,0,0' : matches[matcher.pattern.location];
+                        const location: string = (matches[matcher.pattern.location] === undefined) ? '1,1,1,1' : matches[matcher.pattern.location];
 
                         // Find all digit strings within the match
                         const loc_pattern: RegExp = /\d+/g;
@@ -350,7 +350,7 @@ export function activate(context: vscode.ExtensionContext) {
                            switch (loc_detail.length) {
                               case 1:
                                  start_line = Number(loc_detail[0]);
-                                 start_char = 0;
+                                 start_char = 1;
                                  end_line = start_line;
                                  end_char = Number.MAX_VALUE;
                                  break;
@@ -358,7 +358,7 @@ export function activate(context: vscode.ExtensionContext) {
                               case 2:
                               case 3:
                                  start_line = Number(loc_detail[0]);
-                                 start_char = 0;
+                                 start_char = 1;
                                  end_line = Number(loc_detail[1]);
                                  end_char = Number.MAX_VALUE;
                                  break;
@@ -410,7 +410,7 @@ export function activate(context: vscode.ExtensionContext) {
 
                   const diagnostic: vscode.Diagnostic = {
                      source: source,
-                     range: new vscode.Range(start_line, start_char, end_line, end_char),
+                     range: new vscode.Range(start_line - 1, start_char - 1, end_line - 1, end_char - 1),
                      message: message,
                      severity: diag_severity,
                      code: code
