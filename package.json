@@ -1,0 +1,215 @@
+{
+  "name": "log-problem-matcher",
+  "displayName": "Log Problem Matcher",
+  "description": "Scan log files and display in Problems pane",
+  "publisher": "foo-stuffs",
+  "author": "Anthony Fisher",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "problem",
+    "match",
+    "log",
+    "scan",
+    "parse"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "log-problem-matcher.add_problem",
+        "title": "LPM: Add Test Problem"
+      },
+      {
+        "command": "log-problem-matcher.rescan_new_matcher",
+        "title": "LPM: Rescan with Different Parser/Matcher(s)"
+      },
+      {
+        "command": "log-problem-matcher.rescan",
+        "title": "LPM: Rescan"
+      },
+      {
+        "command": "log-problem-matcher.clear_problems",
+        "title": "LPM: Clear Problems"
+      },
+      {
+        "command": "log-problem-matcher.quickpick_test",
+        "title": "LPM: Quickpick Test"
+      },
+      {
+        "command": "log-problem-matcher.scan_file",
+        "title": "LPM: Scan File"
+      }
+    ],
+    "configuration": {
+      "title": "Log Problem Matcher",
+      "properties": {
+        "log-problem-matcher.parsers": {
+          "type": "object",
+          "description": "Parsers to use for matching problems.",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[a-zA-Z0-9_-]+$": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "pattern"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "fileLocation": {
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "type": "string",
+                            "const": "relative"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "const": "absolute"
+                      }
+                    ]
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "defaultSelected": {
+                    "type": "boolean"
+                  },
+                  "severity": {
+                    "type": "string",
+                    "enum": [
+                      "error",
+                      "info",
+                      "warning"
+                    ]
+                  },
+                  "pattern": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "regexp"
+                    ],
+                    "properties": {
+                      "regexp": {
+                        "type": "string"
+                      },
+                      "file": {
+                        "type": "integer"
+                      },
+                      "severity": {
+                        "type": "integer"
+                      },
+                      "message": {
+                        "type": "integer"
+                      },
+                      "location": {
+                        "type": "integer"
+                      },
+                      "line": {
+                        "type": "integer"
+                      },
+                      "column": {
+                        "type": "integer"
+                      },
+                      "endLine": {
+                        "type": "integer"
+                      },
+                      "endColumn": {
+                        "type": "integer"
+                      },
+                      "code": {
+                        "type": "integer"
+                      },
+                      "error_string": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      },
+                      "info_string": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      },
+                      "warning_string": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "minItems": 1
+            }
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.104.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.42.0",
+    "@typescript-eslint/parser": "^8.42.0",
+    "eslint": "^9.34.0",
+    "typescript": "^5.9.2",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
