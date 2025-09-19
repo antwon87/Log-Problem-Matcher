@@ -2,9 +2,10 @@
   "name": "log-problem-matcher",
   "displayName": "Log Problem Matcher",
   "description": "Scan log files and display in Problems pane",
-  "publisher": "foo-stuffs",
+  "publisher": "AnthonyFisher",
   "author": "Anthony Fisher",
   "version": "1.0.0",
+  "repository": "https://github.com/antwon87/Log-Problem-Matcher",
   "engines": {
     "vscode": "^1.104.0"
   },
