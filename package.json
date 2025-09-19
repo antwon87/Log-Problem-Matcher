@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "repository": "https://github.com/antwon87/Log-Problem-Matcher",
   "engines": {
-    "vscode": "^1.104.0"
+    "vscode": "^1.101.0"
   },
   "categories": [
     "Other"
@@ -27,10 +27,6 @@
   "contributes": {
     "commands": [
       {
-        "command": "log-problem-matcher.add_problem",
-        "title": "LPM: Add Test Problem"
-      },
-      {
         "command": "log-problem-matcher.rescan_new_matcher",
         "title": "LPM: Rescan with Different Parser/Matcher(s)"
       },
@@ -41,10 +37,6 @@
       {
         "command": "log-problem-matcher.clear_problems",
         "title": "LPM: Clear Problems"
-      },
-      {
-        "command": "log-problem-matcher.quickpick_test",
-        "title": "LPM: Quickpick Test"
       },
       {
         "command": "log-problem-matcher.scan_file",
@@ -203,7 +195,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.104.0",
+    "@types/vscode": "^1.101.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "@typescript-eslint/eslint-plugin": "^8.42.0",

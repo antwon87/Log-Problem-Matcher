@@ -4,6 +4,13 @@ Log Problem Matcher (LPM) scans a log file and outputs any errors, warnings, or 
 
 You can configure multiple "parsers", each targeted at a different type of log file. Each parser can have multiple matchers in case you need multiple regular expressions to capture the different types of problems.
 
+## Commands
+
+- `Scan File`: Choose a parser, matcher(s), and log file to scan. This should be the first command you run. It will scan the chosen log file with the chosen matchers and add any detected problems to the VS Code's Problems pane.
+- `Rescan`: If you have already run a scan command, this will clear problems and re-scan the same log file with the same matcher(s).
+- `Rescan with Different Parser/Matcher(s)`: Choose new parser and/or matcher(s), but use the last-selected log file.
+- `Clear Problems`: Clear all LPM-generated problems from the Problems pane.
+
 ## Extension Settings
 
 LPM contributes the following settings:
