@@ -1,5 +1,5 @@
 # Log Problem Matcher
----
+
 Log Problem Matcher (LPM) scans a log file and outputs any errors, warnings, or infos found to the VS Code Problems pane. You define a regular expression to match the issues you want to extract from the log file and tell LPM what type of data you've captured with the regex. Then LPM scans your log and populates the Problems pane. The setup for LPM is similar to the [problem matcher used in VS Code Tasks](https://code.visualstudio.com/docs/debugtest/tasks#_defining-a-problem-matcher).
 
 You can configure multiple "parsers", each targeted at a different type of log file. Each parser can have multiple matchers in case you need multiple regular expressions to capture the different types of problems.
@@ -65,3 +65,11 @@ The below image shows a sample configuration for a Parser. This Parser, named "g
 ### 1.0.0
 
 Initial release of Log Problem Matcher.
+
+### 1.0.1
+
+Minor documentation changes.
+
+### 1.0.2
+
+Fixed a bug making the problem location (line, column) off by one.
