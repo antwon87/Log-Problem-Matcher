@@ -1,9 +1,19 @@
 # Change Log
 
-All notable changes to the "log-problem-matcher" extension will be documented in this file.
+## 1.0.3
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+- Added the "problemLocationZeroBased" setting for a problem matcher to indicate that the reported line and column locations are zero-based.
 
-## [Unreleased]
+- Added a "Scan for Problems" command in the right-click context menu when you click on a file in the Explorer.
 
-- Initial release
+## 1.0.2
+
+Fixed a bug making the problem location (line, column) off by one.
+
+## 1.0.1
+
+Minor documentation changes.
+
+## 1.0.0
+
+Initial release of Log Problem Matcher.

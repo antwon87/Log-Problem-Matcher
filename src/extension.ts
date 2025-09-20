@@ -54,6 +54,15 @@ export function activate(context: vscode.ExtensionContext) {
       doTheMatchin(true, true);
    }));
 
+   context.subscriptions.push(vscode.commands.registerCommand('log-problem-matcher.scan_explorer_file', async (...theArgs) => {
+      if (theArgs.length === 0) {
+         vscode.window.showErrorMessage("LPM can't run the 'Scan for Problems' command in whatever way you initiated it. It must be run by right clicking a file in the Explorer.");
+         return;
+      }
+      history.log = theArgs[0];
+      doTheMatchin(true, false);
+   }));
+
    async function doTheMatchin(chooseParser: boolean, chooseLog: boolean) {
       const settings = vscode.workspace.getConfiguration('log-problem-matcher');
       const parsers: Object = settings.get('parsers') as Object;
@@ -87,8 +96,9 @@ export function activate(context: vscode.ExtensionContext) {
       interface ProblemMatcherInterface {
          title?: string;
          fileLocation?: string | string[];
+         problemLocationZeroBased?: boolean;
          source?: string;
-         defaultSelected?: Boolean;
+         defaultSelected?: boolean;
          severity?: string;
          pattern: PatternInterface;
       }
@@ -393,6 +403,22 @@ export function activate(context: vscode.ExtensionContext) {
                      }
                   }
 
+                  // The Range object used in the Diagnostic uses zero-based indexing for locations,
+                  // but most log files I've seen don't. Assume one-based indexing, but allow the user
+                  // to change it to zero-based.
+                  if (matcher.problemLocationZeroBased === undefined || matcher.problemLocationZeroBased === false) {
+                     start_line--;
+                     start_char--;
+                     end_line--;
+                     end_char--;
+                  }
+
+                  // Don't allow ranges to be negative
+                  start_line = (start_line < 0) ? 0 : start_line;
+                  start_char = (start_char < 0) ? 0 : start_char;
+                  end_line = (end_line < 0) ? 0 : end_line;
+                  end_char = (end_char < 0) ? 0 : end_char;
+
                   // Set default message of "No message found".
                   let message: string = "No message found";
                   if (matcher.pattern.message && matches[matcher.pattern.message] !== undefined) {
@@ -410,7 +436,7 @@ export function activate(context: vscode.ExtensionContext) {
 
                   const diagnostic: vscode.Diagnostic = {
                      source: source,
-                     range: new vscode.Range(start_line - 1, start_char - 1, end_line - 1, end_char - 1),
+                     range: new vscode.Range(start_line, start_char, end_line, end_char),
                      message: message,
                      severity: diag_severity,
                      code: code

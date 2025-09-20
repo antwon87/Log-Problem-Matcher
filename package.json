@@ -27,6 +27,10 @@
   "contributes": {
     "commands": [
       {
+        "command": "log-problem-matcher.scan_explorer_file",
+        "title": "LPM: Scan for Problems"
+      },
+      {
         "command": "log-problem-matcher.rescan_new_matcher",
         "title": "LPM: Rescan with Different Parser/Matcher(s)"
       },
@@ -43,6 +47,20 @@
         "title": "LPM: Scan File"
       }
     ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "log-problem-matcher.scan_explorer_file",
+          "group": "2_workspace"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "log-problem-matcher.scan_explorer_file",
+          "when": "never"
+        }
+      ]
+    },
     "configuration": {
       "title": "Log Problem Matcher",
       "properties": {
@@ -84,6 +102,9 @@
                         "const": "absolute"
                       }
                     ]
+                  },
+                  "problemLocationZeroBased": {
+                    "type": "boolean"
                   },
                   "source": {
                     "type": "string"

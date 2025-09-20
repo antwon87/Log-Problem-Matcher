@@ -64,12 +64,4 @@ The below image shows a sample configuration for a Parser. This Parser, named "g
 
 ### 1.0.0
 
-Initial release of Log Problem Matcher.
-
-### 1.0.1
-
-Minor documentation changes.
-
-### 1.0.2
-
-Fixed a bug making the problem location (line, column) off by one.
+Initial release.
