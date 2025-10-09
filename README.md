@@ -8,6 +8,7 @@ You can configure multiple "parsers", each targeted at a different type of log f
 
 - `Scan File`: Choose a parser, matcher(s), and log file to scan. This should be the first command you run. It will scan the chosen log file with the chosen matchers and add any detected problems to the VS Code's Problems pane.
    - The `Scan File` command can also be accessed by right clicking on a log file in the Explorer view and selecting `LPM: Scan for Problems`.
+   - The command is also accessible by right clicking on an editor tab.
 - `Rescan`: If you have already run a scan command, this will clear problems and re-scan the same log file with the same matcher(s).
 - `Rescan with Different Parser/Matcher(s)`: Choose new parser and/or matcher(s), but use the last-selected log file.
 - `Clear Problems`: Clear all LPM-generated problems from the Problems pane.
@@ -17,6 +18,8 @@ You can configure multiple "parsers", each targeted at a different type of log f
 LPM contributes the following settings:
 
 - `log-problem-matcher.parsers`: This is where you will configure all parsers and problem matchers.
+- `log-problem-matcher.disable_explorer_context_command`: If checked, the "Scan for Problems" command will not be added to the right-click context menu when right-clicking files in the explorer.
+- `log-problem-matcher.disable_editor_title_context_command`: If checked, the "Scan for Problems" command will not be added to the right-click context menu when right-clicking editor tabs.
 
 The "parsers" setting is an object where the keys are the names of your different parsers. For example, you may have a parser set up for logs that come from a particular program.
 
