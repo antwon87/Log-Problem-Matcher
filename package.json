@@ -51,6 +51,13 @@
       "explorer/context": [
         {
           "command": "log-problem-matcher.scan_explorer_file",
+          "group": "2_workspace",
+          "when": "!explorerResourceIsFolder && !config.log-problem-matcher.disable_explorer_context_command"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "log-problem-matcher.scan_explorer_file",
           "group": "2_workspace"
         }
       ],
@@ -64,6 +71,12 @@
     "configuration": {
       "title": "Log Problem Matcher",
       "properties": {
+        "log-problem-matcher.disable_explorer_context_command": {
+          "type": "boolean"
+        },
+        "log-problem-matcher.disable_editor_title_context_command": {
+          "type": "boolean"
+        },
         "log-problem-matcher.parsers": {
           "type": "object",
           "description": "Parsers to use for matching problems.",

@@ -56,7 +56,7 @@ export function activate(context: vscode.ExtensionContext) {
 
    context.subscriptions.push(vscode.commands.registerCommand('log-problem-matcher.scan_explorer_file', async (...theArgs) => {
       if (theArgs.length === 0) {
-         vscode.window.showErrorMessage("LPM can't run the 'Scan for Problems' command in whatever way you initiated it. It must be run by right clicking a file in the Explorer.");
+         vscode.window.showErrorMessage("LPM can't run the 'Scan for Problems' command in whatever way you initiated it. It must be run by right clicking a file in the Explorer or Editor tab title.");
          return;
       }
       history.log = theArgs[0];
