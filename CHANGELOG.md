@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.4
+
+- Added a "Scan for Problems" command in the right-click context menu for editor tabs.
+
 ## 1.0.3
 
 - Added the "problemLocationZeroBased" setting for a problem matcher to indicate that the reported line and column locations are zero-based.
