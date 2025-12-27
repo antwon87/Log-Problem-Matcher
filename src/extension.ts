@@ -97,6 +97,8 @@ export function activate(context: vscode.ExtensionContext) {
          title?: string;
          fileLocation?: string | string[];
          problemLocationZeroBased?: boolean;
+         problemLineZeroBased?: boolean;
+         problemColumnZeroBased?: boolean;
          source?: string;
          defaultSelected?: boolean;
          severity?: string;
@@ -406,11 +408,17 @@ export function activate(context: vscode.ExtensionContext) {
                   // The Range object used in the Diagnostic uses zero-based indexing for locations,
                   // but most log files I've seen don't. Assume one-based indexing, but allow the user
                   // to change it to zero-based.
+                  // The problemLocationZeroBased affects both row and column, or the user can select
+                  // settings independently for row and column.
                   if (matcher.problemLocationZeroBased === undefined || matcher.problemLocationZeroBased === false) {
-                     start_line--;
-                     start_char--;
-                     end_line--;
-                     end_char--;
+                     if (matcher.problemLineZeroBased === undefined || matcher.problemLineZeroBased === false) {
+                        start_line--;
+                        end_line--;
+                     }
+                     if (matcher.problemColumnZeroBased === undefined || matcher.problemColumnZeroBased === false) {
+                        start_char--;
+                        end_char--;
+                     }
                   }
 
                   // Don't allow ranges to be negative
@@ -453,6 +461,8 @@ export function activate(context: vscode.ExtensionContext) {
          });
 
          history.log = fileUri[0];
+
+         vscode.commands.executeCommand("workbench.panel.markers.view.focus");
 
       }
    }

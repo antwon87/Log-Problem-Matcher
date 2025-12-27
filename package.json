@@ -119,6 +119,12 @@
                   "problemLocationZeroBased": {
                     "type": "boolean"
                   },
+                  "problemLineZeroBased": {
+                    "type": "boolean"
+                  },
+                  "problemColumnZeroBased": {
+                    "type": "boolean"
+                  },
                   "source": {
                     "type": "string"
                   },

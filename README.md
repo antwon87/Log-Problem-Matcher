@@ -31,18 +31,18 @@ For example, if your log file indicates and error with "ER: Message", you could 
 
 ### Problem Matcher Properties
 
-Parsers have the following optional properties which are different from standard task problem matchers:
+Problem Matchers (the array elements inside a parser) have the following optional properties which are different from standard task problem matchers:
 
 - `title`: The matcher title is shown in the menu when you run a command. If you don't supply a title, the matcher will be labelled with its index in the matcher array, e.g. "Matcher 0" for the first matcher within a parser.
 - `fileLocation`: This property may behave differently from task problem matchers. It can be either a string: "absolute", or an array of strings: ["relative", {relative_path}]. If your log reports absolute paths, use the former. If your log reports relative paths, use the latter and set {relative_path} to the base path that the reported paths are relative to. If not defined, paths will be assumed to be absolute.
 - `source`: The source will be shown in the Problems pane to the right of the message, to indicate which matcher caught the problem. If not defined, the source will simply be "LPM". If a source is provided in the matcher, the displayed source will be "LPM-source".
 - `defaultSelected`: Set this property to boolean false to make it so the matcher is unchecked by default in the quick pick menu. This will be overridden by previous selections after the first time a command is run. Defaults to "true" if omitted.
-
-Problem matchers (the array elements inside a Parser) have the following optional properties which are different from standard task problem matchers:
-
 - `error_string`: A string or array of strings showing what to match in the log to detect an error.
 - `warning_string`: Same as error_string, but for warnings.
 - `info_string`: Same as error_string, but for infos.
+- `problemLocationZeroBased`: Set to "true" if the problem location reported in the log (line and column numbers) are zero-based, i.e. line 0 is the first line in the file and column 0 is the first character on the line. Otherwise omit this setting or set it to "false", which is the default behavior.
+- `problemLineZeroBased`: Similar to `problemLocationZeroBased`, except only applies to line numbers. Use this setting if the log file was designed by madmen and the line and column numbering uses different indexing. If using this option, omit `problemLocationZeroBased` or set it to false. If it is true, it will take precedence.
+- `problemColumnZeroBased`: Similar to `problemLocationZeroBased`, except only applies to column numbers. Use this setting if the log file was designed by madmen and the line and column numbering uses different indexing. If using this option, omit `problemLocationZeroBased` or set it to false. If it is true, it will take precedence.
 
 LPM does not include the following properties present in standard task problem matchers:
 
@@ -65,6 +65,11 @@ The below image shows a sample configuration for a Parser. This Parser, named "g
 - LPM doesn't yet support multi-line problem matchers as are present in VS Code tasks.
 
 ## Release Notes
+
+### 1.1.0
+
+- Added Line and Column number zero-based or one-based indexing options.
+- LPM now opens the Problems pane automatically after scanning a log.
 
 ### 1.0.0
 

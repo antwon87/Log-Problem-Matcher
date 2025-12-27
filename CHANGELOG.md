@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.1.0
+
+- Added Line and Column number zero-based or one-based indexing options.
+- LPM now opens the Problems pane automatically after scanning a log.
+
 ## 1.0.4
 
 - Added a "Scan for Problems" command in the right-click context menu for editor tabs.
