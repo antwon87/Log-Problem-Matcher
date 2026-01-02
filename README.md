@@ -34,7 +34,7 @@ For example, if your log file indicates and error with "ER: Message", you could 
 Problem Matchers (the array elements inside a parser) have the following optional properties which are different from standard task problem matchers:
 
 - `title`: The matcher title is shown in the menu when you run a command. If you don't supply a title, the matcher will be labelled with its index in the matcher array, e.g. "Matcher 0" for the first matcher within a parser.
-- `fileLocation`: This property may behave differently from task problem matchers. It can be either a string: "absolute", or an array of strings: ["relative", {relative_path}]. If your log reports absolute paths, use the former. If your log reports relative paths, use the latter and set {relative_path} to the base path that the reported paths are relative to. If not defined, paths will be assumed to be absolute.
+- `fileLocation`: This property may behave differently from task problem matchers. It can be a string: "absolute" or "auto", or an array of strings: ["relative", {relative_path}]. If your log reports absolute paths, use the "absolute". If your log reports filenames without even a relative base path, choose "auto". In the auto mode, your workspace will be searched for a file with the given filename. If more than one file is found, the first found will be used. If your log reports relative paths, use the array-based "relative" option and set {relative_path} to the base path that the reported paths are relative to. If not defined, paths will be assumed to be absolute.
 - `source`: The source will be shown in the Problems pane to the right of the message, to indicate which matcher caught the problem. If not defined, the source will simply be "LPM". If a source is provided in the matcher, the displayed source will be "LPM-source".
 - `defaultSelected`: Set this property to boolean false to make it so the matcher is unchecked by default in the quick pick menu. This will be overridden by previous selections after the first time a command is run. Defaults to "true" if omitted.
 - `error_string`: A string or array of strings showing what to match in the log to detect an error. It is recommended to specify this in the matcher settings, but it can also be included in the `pattern` object within the matcher. If defined in the `pattern`, it must be in the first array element of the pattern (in the case of a multi-line matcher).
@@ -86,6 +86,10 @@ Log:
 ## Known Issues
 
 ## Release Notes
+
+### 1.3.0
+
+- Added the "auto" option for a matcher's fileLocation.
 
 ### 1.2.0
 

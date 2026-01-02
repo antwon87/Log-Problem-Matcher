@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.0
+
+- Added the "auto" option for a matcher's fileLocation. This will automatically search for the file within your workspace. If more than one file matches the detected filename, the first found will be chosen.
+
 ## 1.2.0
 
 - Added multi-line problem matching capability similar to the VS Code task problem matchers.

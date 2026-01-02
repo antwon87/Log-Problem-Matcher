@@ -405,7 +405,7 @@ export function activate(context: vscode.ExtensionContext) {
          for await (const line of file.readLines()) {
 
             // Loop through each selected matcher, checking it against this line
-            matchers.forEach((matcher, idx) => {
+            for (const [idx, matcher] of matchers.entries()) {
                if (matcher.patternArray === undefined) {
                   vscode.window.showErrorMessage("matcher.patternArray is undefined. Please contact the extension author to report a bug.");
                   return;
@@ -528,13 +528,21 @@ export function activate(context: vscode.ExtensionContext) {
                      // Assume the file path is absolute by default
                      m_state.path = matches[pattern_file_idx];
 
-                     if (matcher.fileLocation && matcher.fileLocation.constructor === Array && matcher.fileLocation[0] === "relative") {
-                        let base_path: string = matcher.fileLocation[1];
-                        if (matcher.fileLocation[1].toLowerCase() === "${workspacefolder}" && vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders[0]) {
-                           base_path = vscode.workspace.workspaceFolders[0].uri.fsPath;
-                        }
+                     if (matcher.fileLocation) {
 
-                        m_state.path = vscode.Uri.joinPath(vscode.Uri.file(base_path), m_state.path).fsPath;
+                        if (matcher.fileLocation === "auto") {
+                           let auto_uris: vscode.Uri[] = await vscode.workspace.findFiles("**/" + m_state.path);
+                           if (auto_uris.length !== 0) {
+                              m_state.path = auto_uris[0].fsPath;
+                           }
+                        } else if (matcher.fileLocation.constructor === Array && matcher.fileLocation[0] === "relative") {
+                           let base_path: string = matcher.fileLocation[1];
+                           if (matcher.fileLocation[1].toLowerCase() === "${workspacefolder}" && vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders[0]) {
+                              base_path = vscode.workspace.workspaceFolders[0].uri.fsPath;
+                           }
+
+                           m_state.path = vscode.Uri.joinPath(vscode.Uri.file(base_path), m_state.path).fsPath;
+                        }
                      }
                   }
 
@@ -673,7 +681,7 @@ export function activate(context: vscode.ExtensionContext) {
                      m_state.patternIndex++;
                   }
                }
-            });
+            }
 
             line_count++;
          }

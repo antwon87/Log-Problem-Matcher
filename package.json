@@ -113,6 +113,10 @@
                       {
                         "type": "string",
                         "const": "absolute"
+                      },
+                      {
+                        "type": "string",
+                        "const": "auto"
                       }
                     ]
                   },
