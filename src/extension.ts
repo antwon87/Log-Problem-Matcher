@@ -108,6 +108,7 @@ export function activate(context: vscode.ExtensionContext) {
          error_string?: string | string[];
          warning_string?: string | string[];
          info_string?: string | string[];
+         linkToLogFile?: string;
          pattern: PatternInterface;
          patternArray?: PatternInterface[];
       }
@@ -397,9 +398,9 @@ export function activate(context: vscode.ExtensionContext) {
 
       if (fileUri && fileUri[0]) {
          let diagnostic_map: Map<string, vscode.Diagnostic[]> = new Map();
+         let line_count: number = 0;
 
          const file: FileHandle = await fs.promises.open(fileUri[0].fsPath);
-         // const file = await fs.promises.open('C:\\Users\\antwo\\Documents\\VSCode_Extensions\\test_files\\log.log');
 
          for await (const line of file.readLines()) {
 
@@ -518,9 +519,12 @@ export function activate(context: vscode.ExtensionContext) {
                   }
 
                   // Use default path of None. I'm choosing to report problems
-                  // even if they don't have an associated file.
+                  // even if they don't have an associated file. If using the linkToLogFile
+                  // option, set the path to be the log file that we're parsing.
                   let pattern_file_idx = matcher.patternArray[m_state.patternIndex].file;
-                  if (pattern_file_idx && matches[pattern_file_idx] !== undefined) {
+                  if (matcher.linkToLogFile) {
+                     m_state.path = fileUri[0].fsPath;
+                  } else if (pattern_file_idx && matches[pattern_file_idx] !== undefined) {
                      // Assume the file path is absolute by default
                      m_state.path = matches[pattern_file_idx];
 
@@ -534,12 +538,24 @@ export function activate(context: vscode.ExtensionContext) {
                      }
                   }
 
-                  // If the pattern "kind" is "file", I'll leave the location details as 0s.
-                  // I'm not sure how the task problem matchers handle this situation, since
-                  // the Diagnostic requires a range to be specified.
-                  // "kind" must be specified in the first element of the pattern array (if it's
-                  // a multi-line array).
-                  if (matcher.patternArray[0].kind !== "file") {
+                  // If using the linkToLogFile option, set the location to be the line in the
+                  // log file where this problem is reported.
+                  if (matcher.linkToLogFile) {
+                     // Only grab the line if we're matching the first element of the pattern array
+                     // so that we don't update it multiple times when parsing a multi-line problem.
+                     if (m_state.patternIndex === 0) {
+                        m_state.start_line = line_count;
+                        m_state.end_line = m_state.start_line;
+                        m_state.start_char = 0;
+                        m_state.end_char = 0;
+                     }
+                  } else if (matcher.patternArray[0].kind !== "file") {
+                     // If the pattern "kind" is "file", I'll leave the location details as 0s.
+                     // I'm not sure how the task problem matchers handle this situation, since
+                     // the Diagnostic requires a range to be specified.
+                     // "kind" must be specified in the first element of the pattern array (if it's
+                     // a multi-line array).
+
                      let pattern_location_idx = matcher.patternArray[m_state.patternIndex].location;
                      if (pattern_location_idx) {
                         // If a location key is specified, parse the match for location details.
@@ -658,6 +674,8 @@ export function activate(context: vscode.ExtensionContext) {
                   }
                }
             });
+
+            line_count++;
          }
 
          // If the last line of the log file was the last line of a multi-line message,

@@ -43,6 +43,7 @@ Problem Matchers (the array elements inside a parser) have the following optiona
 - `problemLocationZeroBased`: Set to "true" if the problem location reported in the log (line and column numbers) are zero-based, i.e. line 0 is the first line in the file and column 0 is the first character on the line. Otherwise omit this setting or set it to "false", which is the default behavior.
 - `problemLineZeroBased`: Similar to `problemLocationZeroBased`, except only applies to line numbers. Use this setting if the log file was designed by madmen and the line and column numbering uses different indexing. If using this option, omit `problemLocationZeroBased` or set it to false. If it is true, it will take precedence.
 - `problemColumnZeroBased`: Similar to `problemLocationZeroBased`, except only applies to column numbers. Use this setting if the log file was designed by madmen and the line and column numbering uses different indexing. If using this option, omit `problemLocationZeroBased` or set it to false. If it is true, it will take precedence.
+- `linkToLogFile`: If set to true, the generated problems will be linked to the location in the log file which generated them. In the Problems pane, you will see the log file instead of the source files and clicking on a problem will take you to that problem in the log file. This can be useful if you want to easily see the context in the log file around the problem.
 
 LPM does not include the following properties present in standard task problem matchers:
 
@@ -89,6 +90,7 @@ Log:
 ### 1.2.0
 
 - Added multi-line problem matcher support.
+- Added an option to make problems link to the location in the log file where they were reported rather than linking to the source file where the problem exists. May be useful when you want to see the context around the message in the log.
 
 ### 1.1.0
 
