@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.2.0
+
+- Added multi-line problem matching capability similar to the VS Code task problem matchers.
+- Added the capability to specify the `error_string`, `warning_string`, and `info_string` options within the matcher object rather than the pattern object in the settings. It is still possible to specify them in the pattern, but if `pattern` is an array for a multi-line matcher, the error indicator strings must be in the first pattern of the array.
+
 ## 1.1.0
 
 - Added Line and Column number zero-based or one-based indexing options.

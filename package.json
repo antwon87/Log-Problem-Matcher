@@ -139,83 +139,211 @@
                       "warning"
                     ]
                   },
-                  "pattern": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": [
-                      "regexp"
-                    ],
-                    "properties": {
-                      "regexp": {
+                  "error_string": {
+                    "oneOf": [
+                      {
                         "type": "string"
                       },
-                      "file": {
-                        "type": "integer"
-                      },
-                      "severity": {
-                        "type": "integer"
-                      },
-                      "message": {
-                        "type": "integer"
-                      },
-                      "location": {
-                        "type": "integer"
-                      },
-                      "line": {
-                        "type": "integer"
-                      },
-                      "column": {
-                        "type": "integer"
-                      },
-                      "endLine": {
-                        "type": "integer"
-                      },
-                      "endColumn": {
-                        "type": "integer"
-                      },
-                      "code": {
-                        "type": "integer"
-                      },
-                      "error_string": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          }
-                        ]
-                      },
-                      "info_string": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          }
-                        ]
-                      },
-                      "warning_string": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          }
-                        ]
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
                       }
-                    }
+                    ]
+                  },
+                  "info_string": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "warning_string": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "pattern": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "regexp"
+                        ],
+                        "properties": {
+                          "regexp": {
+                            "type": "string"
+                          },
+                          "file": {
+                            "type": "integer"
+                          },
+                          "severity": {
+                            "type": "integer"
+                          },
+                          "message": {
+                            "type": "integer"
+                          },
+                          "location": {
+                            "type": "integer"
+                          },
+                          "line": {
+                            "type": "integer"
+                          },
+                          "column": {
+                            "type": "integer"
+                          },
+                          "endLine": {
+                            "type": "integer"
+                          },
+                          "endColumn": {
+                            "type": "integer"
+                          },
+                          "code": {
+                            "type": "integer"
+                          },
+                          "error_string": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          },
+                          "info_string": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          },
+                          "warning_string": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "regexp"
+                          ],
+                          "properties": {
+                            "regexp": {
+                              "type": "string"
+                            },
+                            "file": {
+                              "type": "integer"
+                            },
+                            "severity": {
+                              "type": "integer"
+                            },
+                            "message": {
+                              "type": "integer"
+                            },
+                            "location": {
+                              "type": "integer"
+                            },
+                            "line": {
+                              "type": "integer"
+                            },
+                            "column": {
+                              "type": "integer"
+                            },
+                            "endLine": {
+                              "type": "integer"
+                            },
+                            "endColumn": {
+                              "type": "integer"
+                            },
+                            "code": {
+                              "type": "integer"
+                            },
+                            "loop": {
+                              "type": "boolean"
+                            },
+                            "error_string": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            },
+                            "info_string": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            },
+                            "warning_string": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               },
